@@ -16,10 +16,17 @@ Future<void> getUsers() async {
 
     if (response.statusCode == 200) {
       print('Data fetched successfully: ${response.body}');
+
+      List<dynamic> users = convert.jsonDecode(response.body);
+
+      for (var user in users) {
+        print(
+            'UID: ${user['uid']}, Name: ${user['first_name']} ${user['last_name']}');
+      }
     } else {
       print('Failed to fetch data. Status code: ${response.statusCode}');
     }
-  } catch (e) {
-    print('An error occurred: $e');
+  } catch (err) {
+    print('An error occurred: $err');
   }
 }
